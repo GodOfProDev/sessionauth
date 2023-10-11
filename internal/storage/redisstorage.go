@@ -3,6 +3,7 @@ package storage
 import (
 	"context"
 	"github.com/go-redis/redis/v8"
+	"os"
 )
 
 type RedisStorage struct {
@@ -10,13 +11,14 @@ type RedisStorage struct {
 }
 
 func NewRedisStorage() (*RedisStorage, error) {
-	client := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
-		Password: "",
-		DB:       0,
-	})
+	opt, err := redis.ParseURL(os.Getenv("DB_URL"))
+	if err != nil {
+		return nil, err
+	}
 
-	_, err := client.Ping(context.Background()).Result()
+	client := redis.NewClient(opt)
+
+	_, err = client.Ping(context.Background()).Result()
 	if err != nil {
 		return nil, err
 	}
