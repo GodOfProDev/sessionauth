@@ -25,3 +25,7 @@ func NewPostgresStore() (*PostgresStore, error) {
 		DB: db,
 	}, nil
 }
+
+func (s *PostgresStore) CreateUser() {
+
+}

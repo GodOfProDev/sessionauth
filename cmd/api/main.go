@@ -5,6 +5,7 @@ import (
 	"log"
 	"sessionauth/internal/router"
 	"sessionauth/internal/session"
+	"sessionauth/internal/storage"
 )
 
 func main() {
@@ -13,12 +14,17 @@ func main() {
 		log.Fatal("there was an issue loading .env")
 	}
 
-	store, err := session.NewRedisSession()
+	rs, err := session.NewRedisSession()
 	if err != nil {
 		log.Fatal("there was an issue connecting to the db")
 	}
 
-	r := router.New(store)
+	ps, err := storage.NewPostgresStore()
+	if err != nil {
+		log.Fatal("there was an issue connecting to the db")
+	}
+
+	r := router.New(ps, rs)
 
 	r.RegisterMiddlewares()
 	r.RegisterHandlers()

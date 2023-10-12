@@ -8,22 +8,25 @@ import (
 	"os"
 	"sessionauth/internal/handlers"
 	"sessionauth/internal/response"
+	"sessionauth/internal/session"
 	"sessionauth/internal/storage"
 )
 
 type Router struct {
-	app   *fiber.App
-	store storage.Storage
+	app     *fiber.App
+	store   storage.Storage
+	session session.Session
 }
 
-func New(store storage.Storage) *Router {
+func New(store storage.Storage, session session.Session) *Router {
 	app := fiber.New(fiber.Config{
 		ErrorHandler: customErrorHandler,
 	})
 
 	return &Router{
-		app:   app,
-		store: store,
+		app:     app,
+		store:   store,
+		session: session,
 	}
 }
 
