@@ -1,4 +1,4 @@
-package storage
+package session
 
 import (
 	"context"
@@ -6,12 +6,12 @@ import (
 	"os"
 )
 
-type RedisStorage struct {
+type RedisSession struct {
 	client *redis.Client
 }
 
-func NewRedisStorage() (*RedisStorage, error) {
-	opt, err := redis.ParseURL(os.Getenv("DB_URL"))
+func NewRedisSession() (*RedisSession, error) {
+	opt, err := redis.ParseURL(os.Getenv("REDIS_DB_URL"))
 	if err != nil {
 		return nil, err
 	}
@@ -23,11 +23,11 @@ func NewRedisStorage() (*RedisStorage, error) {
 		return nil, err
 	}
 
-	return &RedisStorage{
+	return &RedisSession{
 		client: client,
 	}, nil
 }
 
-func (s RedisStorage) CreateUser() {
+func (s RedisSession) CreateSession() {
 
 }

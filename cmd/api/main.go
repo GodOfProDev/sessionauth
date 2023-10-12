@@ -4,7 +4,7 @@ import (
 	"github.com/joho/godotenv"
 	"log"
 	"sessionauth/internal/router"
-	"sessionauth/internal/storage"
+	"sessionauth/internal/session"
 )
 
 func main() {
@@ -13,7 +13,7 @@ func main() {
 		log.Fatal("there was an issue loading .env")
 	}
 
-	store, err := storage.NewRedisStorage()
+	store, err := session.NewRedisSession()
 	if err != nil {
 		log.Fatal("there was an issue connecting to the db")
 	}
