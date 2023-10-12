@@ -14,12 +14,12 @@ func main() {
 		log.Fatal("there was an issue loading .env")
 	}
 
-	rs, err := session.NewRedisSession()
+	ps, err := storage.NewPostgresStore()
 	if err != nil {
 		log.Fatal("there was an issue connecting to the db")
 	}
 
-	ps, err := storage.NewPostgresStore()
+	rs, err := session.NewRedisSession(ps)
 	if err != nil {
 		log.Fatal("there was an issue connecting to the db")
 	}
