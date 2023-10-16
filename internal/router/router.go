@@ -6,6 +6,7 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"os"
+	"sessionauth/internal/auth"
 	"sessionauth/internal/handlers"
 	"sessionauth/internal/response"
 	"sessionauth/internal/session"
@@ -52,10 +53,11 @@ func (r *Router) RegisterMiddlewares() {
 
 func (r *Router) RegisterHandlers() {
 	h := handlers.New(r.store)
+	authMiddleware := auth.NewAuth(r.session)
 
 	v1 := r.app.Group("/v1")
 
-	v1.Get("/ping", h.HandlePing)
+	v1.Get("/ping", authMiddleware.Authenticate, h.HandlePing)
 }
 
 func customErrorHandler(c *fiber.Ctx, err error) error {
