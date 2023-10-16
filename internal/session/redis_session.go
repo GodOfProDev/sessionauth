@@ -5,16 +5,14 @@ import (
 	"github.com/go-redis/redis/v8"
 	"github.com/google/uuid"
 	"os"
-	"sessionauth/internal/storage"
 	"time"
 )
 
 type RedisSession struct {
 	client *redis.Client
-	store  storage.Storage
 }
 
-func NewRedisSession(store storage.Storage) (*RedisSession, error) {
+func NewRedisSession() (*RedisSession, error) {
 	opt, err := redis.ParseURL(os.Getenv("REDIS_DB_URL"))
 	if err != nil {
 		return nil, err
@@ -29,7 +27,6 @@ func NewRedisSession(store storage.Storage) (*RedisSession, error) {
 
 	return &RedisSession{
 		client: client,
-		store:  store,
 	}, nil
 }
 

@@ -19,7 +19,7 @@ func main() {
 		log.Fatal("there was an issue connecting to the db")
 	}
 
-	rs, err := session.NewRedisSession(ps)
+	rs, err := session.NewRedisSession()
 	if err != nil {
 		log.Fatal("there was an issue connecting to the db")
 	}
