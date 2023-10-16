@@ -3,8 +3,10 @@ package session
 import (
 	"context"
 	"github.com/go-redis/redis/v8"
+	"github.com/google/uuid"
 	"os"
 	"sessionauth/internal/storage"
+	"time"
 )
 
 type RedisSession struct {
@@ -31,18 +33,24 @@ func NewRedisSession(store storage.Storage) (*RedisSession, error) {
 	}, nil
 }
 
-func (s *RedisSession) GenerateSession() {
+func (s *RedisSession) GenerateSession(userId string) (string, error) {
+	sessionId := uuid.NewString()
+	if err := s.client.SetEX(context.Background(), sessionId, userId, 24*time.Hour); err != nil {
+		return "", err.Err()
+	}
 
+	return sessionId, nil
 }
 
-func (s *RedisSession) GetSession() {
+func (s *RedisSession) GetUserBySession(session string) (string, error) {
+	userId, err := s.client.Get(context.Background(), session).Result()
+	if err != nil {
+		return "", err
+	}
 
+	return userId, nil
 }
 
-func (s *RedisSession) LogIn() {
-
-}
-
-func (s *RedisSession) LogOut() {
-
+func (s *RedisSession) DeleteSession(session string) error {
+	return s.client.Del(context.Background(), session).Err()
 }
