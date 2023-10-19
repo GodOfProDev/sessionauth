@@ -1,9 +1,9 @@
 package handlers
 
 import (
+	"github.com/godofprodev/sessionauth/internal/response"
+	"github.com/godofprodev/sessionauth/internal/util"
 	"github.com/gofiber/fiber/v2"
-	"sessionauth/internal/response"
-	"sessionauth/internal/util"
 )
 
 func (h *Handlers) HandlePing(c *fiber.Ctx) error {

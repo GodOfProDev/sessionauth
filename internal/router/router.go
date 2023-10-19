@@ -2,15 +2,15 @@ package router
 
 import (
 	"fmt"
+	"github.com/godofprodev/sessionauth/internal/auth"
+	"github.com/godofprodev/sessionauth/internal/handlers"
+	"github.com/godofprodev/sessionauth/internal/response"
+	"github.com/godofprodev/sessionauth/internal/session"
+	"github.com/godofprodev/sessionauth/internal/storage"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"os"
-	"sessionauth/internal/auth"
-	"sessionauth/internal/handlers"
-	"sessionauth/internal/response"
-	"sessionauth/internal/session"
-	"sessionauth/internal/storage"
 )
 
 type Router struct {
@@ -59,7 +59,7 @@ func (r *Router) RegisterHandlers() {
 
 	v1.Get("/register", h.HandleRegister)
 	v1.Get("/login", h.HandleLogin)
-	v1.Get("/logout", h.HandleLogout)
+	v1.Get("/logout", authMiddleware.Authenticate, h.HandleLogout)
 	v1.Get("/ping", authMiddleware.Authenticate, h.HandlePing)
 }
 

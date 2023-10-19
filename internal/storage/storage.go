@@ -1,6 +1,6 @@
 package storage
 
-import "sessionauth/internal/models"
+import "github.com/godofprodev/sessionauth/internal/models"
 
 type Storage interface {
 	CreateUser(user *models.User) error

@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/godofprodev/sessionauth/internal/router"
+	"github.com/godofprodev/sessionauth/internal/session"
+	"github.com/godofprodev/sessionauth/internal/storage"
 	"github.com/joho/godotenv"
 	"log"
-	"sessionauth/internal/router"
-	"sessionauth/internal/session"
-	"sessionauth/internal/storage"
 )
 
 func main() {

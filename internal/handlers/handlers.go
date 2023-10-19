@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"sessionauth/internal/session"
-	"sessionauth/internal/storage"
+	"github.com/godofprodev/sessionauth/internal/session"
+	"github.com/godofprodev/sessionauth/internal/storage"
 )
 
 type Handlers struct {

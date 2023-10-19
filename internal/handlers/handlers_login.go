@@ -1,10 +1,10 @@
 package handlers
 
 import (
+	"github.com/godofprodev/sessionauth/internal/models"
+	"github.com/godofprodev/sessionauth/internal/response"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
-	"sessionauth/internal/models"
-	"sessionauth/internal/response"
 	"time"
 )
 

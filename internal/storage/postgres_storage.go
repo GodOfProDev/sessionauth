@@ -1,10 +1,10 @@
 package storage
 
 import (
+	"github.com/godofprodev/sessionauth/internal/models"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"os"
-	"sessionauth/internal/models"
 )
 
 type PostgresStore struct {

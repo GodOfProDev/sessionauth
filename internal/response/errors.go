@@ -69,10 +69,10 @@ func ErrIncorrectPassword() APIError {
 	}
 }
 
-func ErrGeneratingToken() APIError {
+func ErrLoggingOut() APIError {
 	return APIError{
-		Status: fiber.StatusInternalServerError,
-		Msg:    "there was an issue generating the jwt token",
+		Status: fiber.StatusBadRequest,
+		Msg:    "there was an issue logging you out",
 	}
 }
 

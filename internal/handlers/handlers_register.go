@@ -1,11 +1,11 @@
 package handlers
 
 import (
+	"github.com/godofprodev/sessionauth/internal/models"
+	"github.com/godofprodev/sessionauth/internal/response"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
-	"sessionauth/internal/models"
-	"sessionauth/internal/response"
 )
 
 func (h *Handlers) HandleRegister(c *fiber.Ctx) error {

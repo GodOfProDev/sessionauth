@@ -1,11 +1,11 @@
 package auth
 
 import (
+	"github.com/godofprodev/sessionauth/internal/models"
+	"github.com/godofprodev/sessionauth/internal/response"
+	"github.com/godofprodev/sessionauth/internal/session"
+	"github.com/godofprodev/sessionauth/internal/storage"
 	"github.com/gofiber/fiber/v2"
-	"sessionauth/internal/models"
-	"sessionauth/internal/response"
-	"sessionauth/internal/session"
-	"sessionauth/internal/storage"
 )
 
 type Auth struct {

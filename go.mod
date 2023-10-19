@@ -1,4 +1,4 @@
-module sessionauth
+module github.com/godofprodev/sessionauth
 
 go 1.21
 
