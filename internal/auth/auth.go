@@ -20,9 +20,10 @@ func NewAuth(storage storage.Storage, session session.Session) *Auth {
 	}
 }
 
-var localsUserKey = "user"
+const LocalsUserKey = "user"
 
 func (a *Auth) Authenticate(c *fiber.Ctx) error {
+	c.Locals(LocalsUserKey, nil)
 	cookie := c.Cookies("session")
 
 	if cookie == "" || len(cookie) < 8 || cookie[:7] != "Bearer " {
@@ -52,7 +53,7 @@ func (a *Auth) Authenticate(c *fiber.Ctx) error {
 		Email:    user.Email,
 	}
 
-	c.Locals(localsUserKey, userSession)
+	c.Locals(LocalsUserKey, &userSession)
 
 	return c.Next()
 }
