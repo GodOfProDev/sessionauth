@@ -4,6 +4,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"os"
+	"sessionauth/internal/models"
 )
 
 type PostgresStore struct {
@@ -26,6 +27,10 @@ func NewPostgresStore() (*PostgresStore, error) {
 	}, nil
 }
 
-func (s *PostgresStore) CreateUser() {
+func (s *PostgresStore) CreateUser(*models.User) error {
+	return nil
+}
 
+func (s *PostgresStore) GetUser(username string) (*models.User, error) {
+	return nil, nil
 }

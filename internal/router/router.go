@@ -53,7 +53,7 @@ func (r *Router) RegisterMiddlewares() {
 
 func (r *Router) RegisterHandlers() {
 	h := handlers.New(r.store, r.session)
-	authMiddleware := auth.NewAuth(r.session)
+	authMiddleware := auth.NewAuth(r.store, r.session)
 
 	v1 := r.app.Group("/v1")
 
