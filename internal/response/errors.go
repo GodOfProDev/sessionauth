@@ -13,19 +13,6 @@ type APIError struct {
 func (e APIError) Error() string {
 	return e.Msg
 }
-func ErrRequired(req string) APIError {
-	return APIError{
-		Status: fiber.StatusBadRequest,
-		Msg:    fmt.Sprintf("%v is required", req),
-	}
-}
-
-func ErrInvalidId() APIError {
-	return APIError{
-		Status: fiber.StatusBadRequest,
-		Msg:    "invalid id",
-	}
-}
 
 func ErrCreating(a string) APIError {
 	return APIError{
@@ -80,5 +67,12 @@ func ErrUnauthorized() APIError {
 	return APIError{
 		Status: fiber.StatusUnauthorized,
 		Msg:    "you are not authorized",
+	}
+}
+
+func ErrValidating(message string) APIError {
+	return APIError{
+		Status: fiber.StatusBadRequest,
+		Msg:    message,
 	}
 }

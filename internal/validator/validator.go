@@ -3,7 +3,7 @@ package validator
 import (
 	"fmt"
 	"github.com/go-playground/validator/v10"
-	"github.com/gofiber/fiber/v2"
+	"github.com/godofprodev/sessionauth/internal/response"
 	"strings"
 )
 
@@ -45,7 +45,7 @@ func (v *XValidator) Validate(data interface{}) []ValidationError {
 	return validationErrors
 }
 
-func FormatValidationErrors(errors []ValidationError) *fiber.Error {
+func FormatValidationErrors(errors []ValidationError) error {
 	errMsgs := make([]string, 0)
 
 	for _, err := range errors {
@@ -57,8 +57,5 @@ func FormatValidationErrors(errors []ValidationError) *fiber.Error {
 		))
 	}
 
-	return &fiber.Error{
-		Code:    fiber.ErrBadRequest.Code,
-		Message: strings.Join(errMsgs, " and "),
-	}
+	return response.ErrValidating(strings.Join(errMsgs, " and "))
 }

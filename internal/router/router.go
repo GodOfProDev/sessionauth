@@ -7,7 +7,6 @@ import (
 	"github.com/godofprodev/sessionauth/internal/response"
 	"github.com/godofprodev/sessionauth/internal/session"
 	"github.com/godofprodev/sessionauth/internal/storage"
-	"github.com/godofprodev/sessionauth/internal/validator"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -72,8 +71,6 @@ func customErrorHandler(c *fiber.Ctx, err error) error {
 		return c.Status(e.Status).JSON(e.Data)
 	case response.APISuccessResponse:
 		return c.Status(e.Status).JSON(e)
-	case validator.ValidationError:
-		return c.Status(fiber.StatusBadRequest).JSON(err.Error())
 	default:
 		return c.Status(fiber.StatusInternalServerError).JSON(map[string]interface{}{"message": "internal server error"})
 	}
