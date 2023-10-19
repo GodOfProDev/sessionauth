@@ -27,7 +27,7 @@ func (a *Auth) Authenticate(c *fiber.Ctx) error {
 	cookie := c.Cookies("session")
 
 	if cookie == "" || len(cookie) < 8 || cookie[:7] != "Bearer " {
-		return c.JSON(fiber.Map{"error": "invalid session header"})
+		return c.JSON(fiber.Map{"error": "invalid session"})
 	}
 
 	// get the session id

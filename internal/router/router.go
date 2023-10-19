@@ -57,9 +57,9 @@ func (r *Router) RegisterHandlers() {
 
 	v1 := r.app.Group("/v1")
 
-	v1.Get("/register", h.HandleRegister)
-	v1.Get("/login", h.HandleLogin)
-	v1.Get("/logout", authMiddleware.Authenticate, h.HandleLogout)
+	v1.Post("/register", h.HandleRegister)
+	v1.Post("/login", h.HandleLogin)
+	v1.Post("/logout", authMiddleware.Authenticate, h.HandleLogout)
 	v1.Get("/ping", authMiddleware.Authenticate, h.HandlePing)
 }
 
