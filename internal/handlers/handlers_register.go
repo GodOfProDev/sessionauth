@@ -32,6 +32,11 @@ func (h *Handlers) HandleRegister(c *fiber.Ctx) error {
 		Password: string(encryptedPass),
 	}
 
+	_, err = h.store.GetUserByUsername(params.Username)
+	if err != nil {
+		return response.ErrRegisteredUsername()
+	}
+
 	if err := h.store.CreateUser(&user); err != nil {
 		return response.ErrCreating("user")
 	}
