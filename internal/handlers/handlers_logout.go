@@ -6,9 +6,7 @@ import (
 )
 
 func (h *Handlers) HandleLogout(c *fiber.Ctx) error {
-	cookie := c.Cookies("session")
-
-	sessionId := cookie[:7]
+	sessionId := c.Cookies("session")
 
 	err := h.session.DeleteSession(sessionId)
 	if err != nil {

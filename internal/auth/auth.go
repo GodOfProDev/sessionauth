@@ -35,7 +35,7 @@ func (a *Auth) Authenticate(c *fiber.Ctx) error {
 
 	userID, err := a.session.GetUserIDBySession(sessionId)
 	if err != nil {
-		return err
+		return response.ErrUnauthorized()
 	}
 
 	if userID == "" {
@@ -44,7 +44,7 @@ func (a *Auth) Authenticate(c *fiber.Ctx) error {
 
 	user, err := a.storage.GetUserByID(userID)
 	if err != nil {
-		return err
+		return response.ErrNotFound("user")
 	}
 
 	userSession := models.UserSession{

@@ -49,5 +49,6 @@ func (s *RedisSession) GetUserIDBySession(session string) (string, error) {
 }
 
 func (s *RedisSession) DeleteSession(session string) error {
-	return s.client.Del(context.Background(), session).Err()
+	_, err := s.client.Del(context.Background(), session).Result()
+	return err
 }
