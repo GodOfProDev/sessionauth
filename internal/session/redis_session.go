@@ -39,7 +39,7 @@ func (s *RedisSession) GenerateSession(userId string) (string, error) {
 	return sessionId, nil
 }
 
-func (s *RedisSession) GetUserBySession(session string) (string, error) {
+func (s *RedisSession) GetUserIDBySession(session string) (string, error) {
 	userId, err := s.client.Get(context.Background(), session).Result()
 	if err != nil {
 		return "", err

@@ -1,13 +1,18 @@
 package handlers
 
-import "sessionauth/internal/storage"
+import (
+	"sessionauth/internal/session"
+	"sessionauth/internal/storage"
+)
 
 type Handlers struct {
-	store storage.Storage
+	store   storage.Storage
+	session session.Session
 }
 
-func New(store storage.Storage) *Handlers {
+func New(store storage.Storage, session session.Session) *Handlers {
 	return &Handlers{
-		store: store,
+		store:   store,
+		session: session,
 	}
 }

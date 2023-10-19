@@ -52,11 +52,14 @@ func (r *Router) RegisterMiddlewares() {
 }
 
 func (r *Router) RegisterHandlers() {
-	h := handlers.New(r.store)
+	h := handlers.New(r.store, r.session)
 	authMiddleware := auth.NewAuth(r.session)
 
 	v1 := r.app.Group("/v1")
 
+	v1.Get("/register", h.HandleRegister)
+	v1.Get("/login", h.HandleLogin)
+	v1.Get("/logout", h.HandleLogout)
 	v1.Get("/ping", authMiddleware.Authenticate, h.HandlePing)
 }
 
