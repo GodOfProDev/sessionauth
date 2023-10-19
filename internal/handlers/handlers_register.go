@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/godofprodev/sessionauth/internal/models"
 	"github.com/godofprodev/sessionauth/internal/response"
+	"github.com/godofprodev/sessionauth/internal/validator"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
@@ -15,9 +16,8 @@ func (h *Handlers) HandleRegister(c *fiber.Ctx) error {
 		return response.ErrParsingParams()
 	}
 
-	err := h.validator.Struct(params)
-	if err != nil {
-		return err
+	if err := h.validator.Validate(params); err != nil {
+		return validator.FormatValidationErrors(err)
 	}
 
 	encryptedPass, err := bcrypt.GenerateFromPassword([]byte(params.Password), 14)

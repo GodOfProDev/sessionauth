@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/godofprodev/sessionauth/internal/models"
 	"github.com/godofprodev/sessionauth/internal/response"
+	"github.com/godofprodev/sessionauth/internal/validator"
 	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 	"time"
@@ -15,9 +16,8 @@ func (h *Handlers) HandleLogin(c *fiber.Ctx) error {
 		return response.ErrParsingParams()
 	}
 
-	err := h.validator.Struct(params)
-	if err != nil {
-		return err
+	if err := h.validator.Validate(params); err != nil {
+		return validator.FormatValidationErrors(err)
 	}
 
 	user, err := h.store.GetUser(params.Username)
