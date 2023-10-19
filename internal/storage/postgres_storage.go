@@ -28,12 +28,12 @@ func NewPostgresStore() (*PostgresStore, error) {
 }
 
 const (
-	createUserSQL        = `INSERT INTO users VALUES ($1, $2, $3)`
+	createUserSQL        = `INSERT INTO users VALUES ($1, $2, $3, $4)`
 	getUserByUsernameSQL = `SELECT * FROM users WHERE username = $1`
 )
 
 func (s *PostgresStore) CreateUser(user *models.User) error {
-	_, err := s.DB.Exec(createUserSQL, user.ID, user.Username, user.Password)
+	_, err := s.DB.Exec(createUserSQL, user.ID, user.Username, user.Email, user.Password)
 	if err != nil {
 		return err
 	}

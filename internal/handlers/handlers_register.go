@@ -28,6 +28,7 @@ func (h *Handlers) HandleRegister(c *fiber.Ctx) error {
 	user := models.User{
 		ID:       uuid.New(),
 		Username: params.Username,
+		Email:    params.Email,
 		Password: string(encryptedPass),
 	}
 
@@ -35,5 +36,5 @@ func (h *Handlers) HandleRegister(c *fiber.Ctx) error {
 		return response.ErrCreating("user")
 	}
 
-	return response.SuccessCreated(user)
+	return response.SuccessMessage("successfully created your account")
 }
