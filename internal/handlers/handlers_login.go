@@ -20,7 +20,7 @@ func (h *Handlers) HandleLogin(c *fiber.Ctx) error {
 		return validator.FormatValidationErrors(err)
 	}
 
-	user, err := h.store.GetUser(params.Username)
+	user, err := h.store.GetUserByUsername(params.Username)
 	if err != nil {
 		return response.ErrNotFound(params.Username)
 	}

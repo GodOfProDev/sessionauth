@@ -6,6 +6,7 @@ import (
 	"github.com/godofprodev/sessionauth/internal/session"
 	"github.com/godofprodev/sessionauth/internal/storage"
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 )
 
 type Auth struct {
@@ -26,23 +27,22 @@ func (a *Auth) Authenticate(c *fiber.Ctx) error {
 	c.Locals(LocalsUserKey, nil)
 	cookie := c.Cookies("session")
 
-	if cookie == "" || len(cookie) < 8 || cookie[:7] != "Bearer " {
+	if cookie == "" || !validateUUID(cookie) {
 		return c.JSON(fiber.Map{"error": "invalid session"})
 	}
 
-	// get the session id
-	sessionId := cookie[7:]
+	sessionId := cookie
 
 	userID, err := a.session.GetUserIDBySession(sessionId)
 	if err != nil {
 		return err
 	}
 
-	if userID != "" {
+	if userID == "" {
 		return response.ErrUnauthorized()
 	}
 
-	user, err := a.storage.GetUser(userID)
+	user, err := a.storage.GetUserByID(userID)
 	if err != nil {
 		return err
 	}
@@ -56,4 +56,13 @@ func (a *Auth) Authenticate(c *fiber.Ctx) error {
 	c.Locals(LocalsUserKey, &userSession)
 
 	return c.Next()
+}
+
+func validateUUID(id string) bool {
+	_, err := uuid.Parse(id)
+	if err != nil {
+		return false
+	}
+
+	return true
 }

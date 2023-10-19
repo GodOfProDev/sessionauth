@@ -8,7 +8,7 @@ import (
 
 func (h *Handlers) HandlePing(c *fiber.Ctx) error {
 	user := util.GetAuthenticatedUser(c)
-	if user != nil {
+	if user == nil {
 		return response.ErrUnauthorized()
 	}
 

@@ -32,8 +32,8 @@ func NewRedisSession() (*RedisSession, error) {
 
 func (s *RedisSession) GenerateSession(userId string) (string, error) {
 	sessionId := uuid.NewString()
-	if err := s.client.SetEX(context.Background(), sessionId, userId, 24*time.Hour); err != nil {
-		return "", err.Err()
+	if err := s.client.SetEX(context.Background(), sessionId, userId, 24*time.Hour).Err(); err != nil {
+		return "", err
 	}
 
 	return sessionId, nil
