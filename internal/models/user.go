@@ -16,11 +16,12 @@ type UserSession struct {
 }
 
 type RegisterUserParams struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Username string `validate:"required,min=4,max=15" json:"username"`
+	Email    string `validate:"required,email" json:"email"`
+	Password string `validate:"required,min=7,max=20" json:"password"`
 }
 
 type LoginUserParams struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Username string `validate:"required" json:"username"`
+	Password string `validate:"required" json:"password"`
 }

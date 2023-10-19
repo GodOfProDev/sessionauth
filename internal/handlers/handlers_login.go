@@ -15,11 +15,9 @@ func (h *Handlers) HandleLogin(c *fiber.Ctx) error {
 		return response.ErrParsingParams()
 	}
 
-	if params.Username == "" {
-		return response.ErrRequired("user")
-	}
-	if params.Password == "" {
-		return response.ErrRequired("password")
+	err := h.validator.Struct(params)
+	if err != nil {
+		return err
 	}
 
 	user, err := h.store.GetUser(params.Username)

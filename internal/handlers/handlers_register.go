@@ -15,11 +15,9 @@ func (h *Handlers) HandleRegister(c *fiber.Ctx) error {
 		return response.ErrParsingParams()
 	}
 
-	if params.Username == "" {
-		return response.ErrRequired("user")
-	}
-	if params.Password == "" {
-		return response.ErrRequired("password")
+	err := h.validator.Struct(params)
+	if err != nil {
+		return err
 	}
 
 	encryptedPass, err := bcrypt.GenerateFromPassword([]byte(params.Password), 14)
